@@ -35,7 +35,7 @@ def loginUrnaVotacao(senha):
     print("Login Concluído")
 
     print("======== CANDIDATOS ELEIÇÃO ========")
-    print()
+    print("Voto em branco - Número do voto:    [0]")
     print("João Batista - Número do voto:      [19]")
     print("Fernando do Gás - Número do voto:   [10]")
     print("Larissa Gonçalves - Número do voto: [16]")
@@ -92,6 +92,28 @@ def exibirResultados():
     print(f"Larissa Gonçalves: {quantLarissa / total_votos_validos * 100:.2f}%")
     print(f"Souza da água: {quantSouza / total_votos_validos * 100:.2f}%")
 
+    print("\nCANDIDATO ELEITO:")
+
+    if quantJoao > quantFernando and quantJoao > quantLarissa and quantJoao > quantSouza:
+            print(f"João Batista é eleito com {quantJoao} votos!")
+
+    elif quantFernando > quantJoao and quantFernando > quantLarissa and quantFernando > quantSouza:
+            print(f"Fernando do Gás é eleito com {quantFernando} votos!")
+    
+    elif quantLarissa > quantJoao and quantLarissa > quantFernando and quantLarissa > quantSouza:
+            print(f"Larissa Gonçalves é eleita com {quantLarissa} votos!")
+
+    elif quantSouza > quantJoao and quantSouza > quantFernando and quantSouza > quantLarissa:
+            print(f"Souza da água é eleito com {quantSouza} votos!")
+
+    else:
+            print("Houve um empate entre os candidatos!")
+            print(f"João Batista: {quantJoao} votos")
+            print(f"Fernando do Gás: {quantFernando} votos")
+            print(f"Larissa Gonçalves: {quantLarissa} votos")
+            print(f"Souza da água: {quantSouza} votos")
+    
+
 
 
 
@@ -99,6 +121,3 @@ def exibirResultados():
 
 loginUrnaVotacao(senha)
 exibirResultados()
-
-
-
