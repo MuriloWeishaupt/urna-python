@@ -17,6 +17,15 @@ def criaSenha():
 criaSenha()
 
 
+
+
+quantJoao = 0 
+quantFernando = 0 
+quantLarissa = 0
+quantSouza = 0 
+quantBranco = 0
+
+
 def loginUrnaVotacao(senha):
     senhaLogin = input("Insira sua senha: ")
     while senha != senhaLogin:
@@ -38,35 +47,58 @@ def loginUrnaVotacao(senha):
     votoSouza = 12
     votoBranco = 0
 
-    quantJoao, quantFernando, quantLarissa, quantSouza, quantBranco = 0
-
+    global quantJoao, quantFernando, quantLarissa, quantSouza, quantBranco
+   
     escolha = True
 
-    voto = int(input("Digite o seu voto: "))
-
-    if voto == votoJoao:
-        quantJoao += 1
-    elif voto == votoFernando:
-        quantFernando += 1
-    elif voto == votoLarissa:
-        quantLarissa += 1
-    elif voto == votoSouza:
-        quantSouza += 1
-    elif voto == votoBranco:
-        quantBranco += 1
-    else:
-        quantBranco += 1
-
-
     while escolha == True:
+        voto = int(input("Digite o seu voto: "))
+        if voto == votoJoao:
+            quantJoao += 1
+        elif voto == votoFernando:
+            quantFernando += 1
+        elif voto == votoLarissa:
+            quantLarissa += 1
+        elif voto == votoSouza:
+            quantSouza += 1
+        elif voto == votoBranco:
+            quantBranco += 1
+        else:
+            quantBranco += 1
         esc = input("Deseja Votar novamente [S/N]: ").upper()
-        if esc == 'S':
-            escolha == False
+        if esc == 'N':
+            escolha = False
             break
+            
         
-        
+
+def exibirResultados():
+    total_votos = quantBranco + quantFernando + quantJoao + quantLarissa + quantSouza
+    total_votos_validos = quantFernando + quantJoao + quantLarissa + quantSouza
+
+    print("======== RESULTADO DA ELEIÇÃO ========")
+    print(f"Total de votos: {total_votos}")
+    print(f"Total de votos válidos: {total_votos_validos}")
+    print(f"Total de votos nulos/brancos: {quantBranco} - {quantBranco / total_votos * 100:.2f}%")
+
+    print(f"\nJoâo Batista: {quantJoao} - {quantJoao / total_votos * 100:.2f}%")
+    print(f"Fernando do Gás: {quantFernando} - {quantFernando / total_votos * 100:.2f}%")
+    print(f"Larissa Gonçalves: {quantLarissa} - {quantLarissa / total_votos * 100:.2f}%")
+    print(f"Souza da Água: {quantSouza} - {quantSouza / total_votos * 100:.2f}%")
+
+    print("\n-- Percentuais sobre os votos válidos --")
+    print(f"João Batista: {quantJoao / total_votos_validos * 100:.2f}%")
+    print(f"Fernando do Gás: {quantFernando / total_votos_validos * 100:.2f}%")
+    print(f"Larissa Gonçalves: {quantLarissa / total_votos_validos * 100:.2f}%")
+    print(f"Souza da água: {quantSouza / total_votos_validos * 100:.2f}%")
+
+
+
+
+
 
 loginUrnaVotacao(senha)
+exibirResultados()
 
 
 
