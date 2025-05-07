@@ -4,27 +4,20 @@ def criaSenha():
     global senha
     senha = input("Crie sua senha: ")
     senha2 = input("Confirme sua senha: ")
-    while (senha != senha2):
+    while senha != senha2:
         print("Ambas senhas devem ser iguais! Tente novamente")
         senha = input("Crie sua senha: ")
         senha2 = input("Confirme sua senha: ")
-        if senha == senha2:
-            break
     print("-----------------------------")
     print("Senha cadastrada com sucesso!")
-    
 
 criaSenha()
-
-
-
 
 quantJoao = 0 
 quantFernando = 0 
 quantLarissa = 0
 quantSouza = 0 
 quantBranco = 0
-
 
 def loginUrnaVotacao(senha):
     senhaLogin = input("Insira sua senha: ")
@@ -69,8 +62,56 @@ def loginUrnaVotacao(senha):
         if esc == 'N':
             escolha = False
             break
-            
         
+        senhaLogin = input("Insira sua senha: ")
+        while senha != senhaLogin:
+            print("SENHA INVÁLIDA!")
+            senhaLogin = input("Insira sua senha: ")
+        
+def segundoTurno(candidatos_empate):
+    print("\n======== SEGUNDO TURNO ========")
+    print("Candidatos empatados:")
+    i = 1
+    while i <= len(candidatos_empate):
+        print(f"{i}.  {candidatos_empate[i - 1]}")
+        i += 1
+
+    votos_segundo_turno = []
+    for i in range(len(candidatos_empate)):
+        votos_segundo_turno.append(0)
+
+    continuar = True
+    while continuar:
+        voto = int(input("Digite o número do candidato: "))
+        if voto >= 1 and voto <= len(candidatos_empate):
+            votos_segundo_turno[voto - 1] += 1
+        else:
+            print("Voto inválido!")
+
+        esc = input("Deseja votar novamente no segundo turno [S/N]? ").upper()
+        if esc == 'N':
+            continuar = False
+
+    print("\n======== RESULTADO DO SEGUNDO TURNO ========")
+    i = 0
+    while i < len(candidatos_empate):
+        print(f"{candidatos_empate[i]}: {votos_segundo_turno[i]} votos")
+        i += 1
+
+    max_votos = max(votos_segundo_turno)
+    vencedores = []
+    i = 0
+    while i < len(votos_segundo_turno):
+        if votos_segundo_turno[i] == max_votos:
+            vencedores.append(candidatos_empate[i])
+        i += 1
+
+    if len(vencedores) == 1:
+        print("\n" + vencedores[0] + " é o(a) vencedor(a) do segundo turno!")
+    else:
+        print("\nEmpate novamente no segundo turno entre:")
+        for nome in vencedores:
+            print("- " + nome)
 
 def exibirResultados():
     total_votos = quantBranco + quantFernando + quantJoao + quantLarissa + quantSouza
@@ -95,29 +136,37 @@ def exibirResultados():
     print("\nCANDIDATO ELEITO:")
 
     if quantJoao > quantFernando and quantJoao > quantLarissa and quantJoao > quantSouza:
-            print(f"João Batista é eleito com {quantJoao} votos!")
+        print(f"João Batista é eleito com {quantJoao} votos!")
 
     elif quantFernando > quantJoao and quantFernando > quantLarissa and quantFernando > quantSouza:
-            print(f"Fernando do Gás é eleito com {quantFernando} votos!")
+        print(f"Fernando do Gás é eleito com {quantFernando} votos!")
     
     elif quantLarissa > quantJoao and quantLarissa > quantFernando and quantLarissa > quantSouza:
-            print(f"Larissa Gonçalves é eleita com {quantLarissa} votos!")
+        print(f"Larissa Gonçalves é eleita com {quantLarissa} votos!")
 
     elif quantSouza > quantJoao and quantSouza > quantFernando and quantSouza > quantLarissa:
-            print(f"Souza da água é eleito com {quantSouza} votos!")
+        print(f"Souza da água é eleito com {quantSouza} votos!")
 
     else:
-            print("Houve um empate entre os candidatos!")
-            print(f"João Batista: {quantJoao} votos")
-            print(f"Fernando do Gás: {quantFernando} votos")
-            print(f"Larissa Gonçalves: {quantLarissa} votos")
-            print(f"Souza da água: {quantSouza} votos")
-    
+        print("Houve um empate entre os candidatos!")
+        print(f"João Batista: {quantJoao} votos")
+        print(f"Fernando do Gás: {quantFernando} votos")
+        print(f"Larissa Gonçalves: {quantLarissa} votos")
+        print(f"Souza da água: {quantSouza} votos")
 
+        candidatos_empate = []
+        maior_voto = max(quantJoao, quantFernando, quantLarissa, quantSouza)
 
+        if quantJoao == maior_voto:
+            candidatos_empate.append("João Batista")
+        if quantFernando == maior_voto:
+            candidatos_empate.append("Fernando do Gás")
+        if quantLarissa == maior_voto:
+            candidatos_empate.append("Larissa Gonçalves")
+        if quantSouza == maior_voto:
+            candidatos_empate.append("Souza da água")
 
-
-
+        segundoTurno(candidatos_empate)
 
 loginUrnaVotacao(senha)
 exibirResultados()
